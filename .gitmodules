@@ -1,0 +1,3 @@
+[submodule "srusers"]
+	path = srusers
+	url = git://srobo.org/srusers.git
