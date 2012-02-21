@@ -7,7 +7,7 @@ import json
 TEAM_PREFIX = 'team-'
 STATUS_POSTFIX = '-status.json'
 
-def getInfo(arg):
+def _getInfo(arg):
 
 	if arg[-1 * len(STATUS_POSTFIX):] == STATUS_POSTFIX:
 		team = arg[:-1 * len(STATUS_POSTFIX)]
@@ -15,6 +15,12 @@ def getInfo(arg):
 	else:
 		team = arg
 		fileName = arg + STATUS_POSTFIX
+
+	return team, fileName
+
+def getInfo(arg):
+
+	team, fileName = _getInfo(arg)
 
 	if not os.path.exists(fileName):
 		print "Could not find status file '%s' for team '%s'" % (fileName, team)
@@ -44,3 +50,23 @@ def review(fileName, accept):
 
 	with open(fileName, 'w') as f:
 		json.dump(data, f)
+
+def getFileNames(path):
+	for fn in os.listdir(path):
+		if fn[-1 * len(STATUS_POSTFIX):] == STATUS_POSTFIX:
+			t, fn = _getInfo(fn)
+			fp = os.path.join(path, fn)
+			yield t, fp
+
+def needsImageReview(fileName):
+	data = None
+
+	with open(fileName) as f:
+		data = json.load(f)
+
+	if data is None or not data.has_key('image'):
+		return False
+
+	imgData = data['image']
+
+	return imgData.has_key('reviewed') and not imgData['reviewed']
