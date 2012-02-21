@@ -32,6 +32,11 @@ def getFileName(arg):
 	return getInfo(arg)[1]
 
 def review(fileName, accept):
+	if not needsImageReview(fileName):
+		t = _getInfo(fileName)[0]
+		print "Team %s's image has already been reviewed!" % t
+		exit(1)
+
 	data = None
 
 	with open(fileName) as f:
