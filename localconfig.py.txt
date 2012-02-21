@@ -1,0 +1,6 @@
+
+# The location that the images are uploaded to
+src = '/tmp/ide-team-status-images'
+
+# The location that the images need to be copied into for the live site
+dest = '~/public_html/sr/srweb/images/teams'
