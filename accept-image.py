@@ -21,5 +21,12 @@ except ImportError:
 	print 'You should add a localconfig.py based on localconfig.py.txt'
 	exit(1)
 
-import shutil
-shutil.move(conf.src, conf.dest)
+import os
+
+def moveImage(fn):
+	src = os.path.join(conf.src, fn)
+	dest = os.path.join(conf.dest, fn)
+	os.rename(src, dest)
+
+moveImage(team + '.png')
+moveImage(team + '_thumb.png')
