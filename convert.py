@@ -11,7 +11,7 @@ import srusers as sr
 TEAM_PREFIX = 'team-'
 STATUS_POSTFIX = '-status.json'
 
-def putUrlInStatus(url, filePath):
+def putUrlInStatus(entry, filePath):
 	url = entry['url']
 
 	info = dict()
